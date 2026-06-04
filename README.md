@@ -1,2 +1,3 @@
-# deck_cards_jc
-Dynamically creates a deck of cards that can be shuffled, have a card drawn, etc.
+OOP based deck of cards. Dynamically generated with loops.
+
+Hard-coding the deck was an option, but recreating a card deck using classes and attributes, specially looping them, was a challange intended to teach. Updates incoming.
