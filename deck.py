@@ -10,7 +10,6 @@ class card:
 class deck:
     def __init__(self):
         self.collection = {}
-        self.order = {}
         suits = ["♠", "♡", "♦", "♣"]
         numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
         counter = 0 # helper variable that allows card attributes to be named
@@ -20,17 +19,24 @@ class deck:
                 newcard = card(s, n)
                 self.collection[attr_name] = newcard
                 counter += 1
-        for c in range(counter): # associates all cards to a number, representing its spot in the deck.
-            self.order[self.collection[f"card{c}"].string] = c
-    def shuffle():
-        spots = [i for i in range(52)]
-
+        self.order = ["" for i in range(counter)]
+        for c in range(counter): # inserts all cards in a set, representing the card order, that can later be suffled
+            self.order[c] = self.collection[f"card{c}"].string
+    def shuffle(self):
+        random.shuffle(self.order)
+    def pick_first(self):
+        return self.order[0]
+    def pick_any(self):
+        return self.order[random.randint(0, 52)]
+    
 
 deck1 = deck()
 
 for i in range(52):
     print(deck1.collection[f"card{i}"].string)
+
+print(f"\n")
+deck1.shuffle()
 print(deck1.order)
-        
-spots = [i for i in range(52)]
-print(spots[1])
+print(deck1.pick_first())
+print(deck1.pick_any())
