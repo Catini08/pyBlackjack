@@ -1,5 +1,7 @@
 import subprocess
+import os
 import random
+import time
 
 def clear():
     subprocess.run(
@@ -33,13 +35,41 @@ class deck:
         return self.order[random.randint(0, self.quantity)] # 
     
 
-deck1 = deck()
+menu_state = 0
+deck_is_created = False
 
-for i in range(deck1.quantity):
-    print(deck1.collection[f"card{i}"].string)
+while True: # main menu
+    if menu_state == 0:
+        if deck_is_created == False:
+            clear()
+            print(
+                "------------INTERACTIVE DECK OF CARDS------------" \
+                "\n" \
+                "-------------------Main menu---------------------" \
+                "\n\n\n" \
+                "[1] - Create deck\n[2] - Play Blackjack\n[3] - End session" \
+                "\n\n"
+                )
+            menu_state_first = int(input("Desired option: "))
 
-print(f"\n")
-deck1.shuffle()
-print(deck1.order)
-print(deck1.pick_first())
-print(deck1.pick_any())
+            if menu_state_first == 1:
+                clear()
+                deck_is_created = True
+                print("Deck created!")
+                time.sleep(2)
+                continue
+            else:
+                menu_state_first = menu_state
+                continue
+        else:
+            clear()
+            print(
+                "------------INTERACTIVE DECK OF CARDS------------" \
+                "\n" \
+                "-------------------Main menu---------------------" \
+                "\n\n\n" \
+                "[1] - Explore deck\n[2] - Play Blackjack\n[3] - End session" \
+                "\n\n"
+                )
+            menu_state = int(input("Desired option: "))
+            continue
