@@ -2,6 +2,9 @@ import subprocess
 import os
 import random
 import time
+import colorama
+from colorama import Fore, Back, Style
+colorama.init(autoreset=True)
 
 def clear():
     subprocess.run(
@@ -11,11 +14,115 @@ def clear():
 suits = ["♠", "♡", "♦", "♣"]
 numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
+val_counter = 0 # dynamic value for each card
+values = {f"{numbers[c]}": c for c in range(len(numbers))}
+
+
 class card:
     def __init__(self, suit, number):
         self.suit = suit
         self.number = number
+        self.value = values[number]
         self.string = f"{number} {suit}"
+    def glyph_show(self): # card glyph displayer
+        if self.suit == "♡" or self.suit == "♦":
+            style = Back.WHITE + Fore.RED
+        else:
+            style = Back.WHITE + Fore.BLACK
+        n_top = self.number.ljust(2)
+        n_bot = self.number.rjust(2)
+        s = self.suit
+
+        if self.value == 0:  # Ace (1 center symbol)
+            print(f"{style}{n_top}       ")
+            print(f"{style}         ")
+            print(f"{style}    {s}    ")
+            print(f"{style}         ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 1:  # 2 (Top and Bottom)
+            print(f"{style}{n_top}       ")
+            print(f"{style}    {s}    ")
+            print(f"{style}         ")
+            print(f"{style}    {s}    ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 2:  # 3 (Top, Middle, Bottom)
+            print(f"{style}{n_top}       ")
+            print(f"{style}    {s}    ")
+            print(f"{style}    {s}    ")
+            print(f"{style}    {s}    ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 3:  # 4 (Four corners)
+            print(f"{style}{n_top}       ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}         ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 4:  # 5 (Four corners + Middle)
+            print(f"{style}{n_top}       ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}    {s}    ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 5:  # 6 (Two columns of three)
+            print(f"{style}{n_top}       ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 6:  # 7 (Two columns of three + One upper middle)
+            print(f"{style}{n_top}       ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}  {s} {s} {s}  ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 7:  # 8 
+            print(f"{style}{n_top}       ")
+            print(f"{style} {s}  {s}  {s} ")
+            print(f"{style}    {s}    ")
+            print(f"{style} {s}  {s}  {s} ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 8:  # 9 (Three columns of three)
+            print(f"{style}{n_top}       ")
+            print(f"{style} {s}  {s}  {s} ")
+            print(f"{style} {s}  {s}  {s} ")
+            print(f"{style} {s}  {s}  {s} ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 9:  # 10 
+            print(f"{style}{n_top}       ")
+            print(f"{style} {s}  {s}  {s} ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style} {s}  {s}  {s} ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 10:  # Jack
+            print(f"{style}{n_top}       ")
+            print(f"{style}   {s} {s}   ")
+            print(f"{style}    {s}    ")
+            print(f"{style}   {s} {s}   ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 11:  # Queen
+            print(f"{style}{n_top}       ")
+            print(f"{style}   {s}{s}{s}   ")
+            print(f"{style}   {s} {s}   ")
+            print(f"{style}   {s}{s}{s}   ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 12:  # King
+            print(f"{style}{n_top}       ")
+            print(f"{style}  {s} {s} {s}  ")
+            print(f"{style}   {s}{s}{s}   ")
+            print(f"{style}  {s} {s} {s}  ")
+            print(f"{style}       {n_bot}")
 
 class deck:
     def __init__(self):
@@ -41,16 +148,16 @@ def shuffle_anim():# shuffle animation
     for _ in range(3):
         clear()
         print("Shuffling")
-        time.sleep(0.2)
+        time.sleep(0.15)
         clear()
         print("Shuffling.")
-        time.sleep(0.2)
+        time.sleep(0.15)
         clear()
         print("Shuffling..")
-        time.sleep(0.2)
+        time.sleep(0.15)
         clear()
         print("Shuffling...")
-        time.sleep(0.2)
+        time.sleep(0.15)
 
     clear()
     print("Deck shuffled!")
@@ -60,16 +167,16 @@ def pick_anim(): # pick animation
     for _ in range(3):
         clear()
         print("Picking")
-        time.sleep(0.2)
+        time.sleep(0.15)
         clear()
         print("Picking.")
-        time.sleep(0.2)
+        time.sleep(0.15)
         clear()
         print("Picking..")
-        time.sleep(0.2)
+        time.sleep(0.15)
         clear()
         print("Picking...")
-        time.sleep(0.2)
+        time.sleep(0.15)
     clear()
 
 menu_state = 0
@@ -182,7 +289,7 @@ while True:
             clear()
             expl_menu_state = 0
             menu_state = 0
-            break
+            continue
         elif expl_menu_state == 10: # invalid character
             clear()
             print("Invalid input.")
