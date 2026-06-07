@@ -88,14 +88,20 @@ while True:
                 "[1] - Create deck\n\n[2] - Play Blackjack\n\n[3] - End session" \
                 "\n\n"
                 )
-            menu_state_first = int(input("Desired option: "))
+            
+            burnervar = input("Desired option: ") # protects code from bad user input
+            if burnervar.isdigit():
+                menu_state_first = int(burnervar)
+            else:
+                menu_state = 10
+                continue
 
-            if menu_state_first == 1:
+            if menu_state_first == 1: # creating deck
                 clear()
                 deck_is_created = True
                 deck1 = deck()
                 print("Deck created!")
-                time.sleep(1)
+                time.sleep(0.8)
                 continue
             else:
                 menu_state_first = menu_state
@@ -110,10 +116,18 @@ while True:
                 "[1] - Explore deck\n\n[2] - Play Blackjack\n\n[3] - End session" \
                 "\n\n"
                 )
-            menu_state = int(input("Desired option: "))
-            continue
-    if menu_state == 1:
+            
+            burnervar = input("Desired option: ")
+            if burnervar.isdigit():
+                menu_state = int(burnervar)
+                continue
+            else:
+                menu_state = 10
+                burnervar = 0
+                continue
+    if menu_state == 1: # explore deck menu
         if expl_menu_state == 0:
+            clear()
             print(
                     "------------INTERACTIVE DECK OF CARDS------------" \
                     "\n" \
@@ -122,15 +136,21 @@ while True:
                     "[1] - Shuffle deck\n\n[2] - Pick first card\n\n[3] - Pick any card\n\n[4] - Pick specific card\n\n[5] - Exit exploration" \
                     "\n\n"
                     )
-            expl_menu_state = int(input("Desired option: "))
-            continue
-        elif expl_menu_state == 1:
+            burnervar = input("Desired option: ")
+            if burnervar.isdigit():
+                expl_menu_state = int(burnervar)
+                continue
+            else:
+                burnervar = 0
+                expl_menu_state = 10
+                continue
+        elif expl_menu_state == 1: # shuffle deck
             shuffle_anim()
             deck1.shuffle()
             clear()
             expl_menu_state = 0
             continue
-        elif expl_menu_state == 2:
+        elif expl_menu_state == 2: # pick first
             clear()
             pick_anim()
             clear()
@@ -139,7 +159,14 @@ while True:
             enter = input("\n\n[ENTER] = Return")
             expl_menu_state = 0
             continue
-        elif expl_menu_state == 4:
+        elif expl_menu_state == 3: # pick any card
+            clear()
+            pick_anim()
+            print(f"You picked {deck1.pick_any()}!")
+            enter = input("\n\n[ENTER] = Return")
+            expl_menu_state = 0
+            continue
+        elif expl_menu_state == 4: # pick specific card on given position
             clear()
             print(f"Choose a position from 0 to {deck1.quantity}.\n-> In this case, 0 is the card on top and {deck1.quantity} is the card in the bottom.")
             pick_position = int(input("\nDesired position: "))
@@ -151,6 +178,27 @@ while True:
             enter = input("\n\n[ENTER] = Return")
             expl_menu_state = 0
             continue
-
-
+        elif expl_menu_state == 5:
+            clear()
+            expl_menu_state = 0
+            menu_state = 0
+            break
+        elif expl_menu_state == 10: # invalid character
+            clear()
+            print("Invalid input.")
+            expl_menu_state = 0
+            enter = input("\n\n[ENTER] = Try again")
+            continue
+        else: # invalid integer state
+            clear()
+            print("Invalid input.")
+            expl_menu_state = 0
+            enter = input("\n\n[ENTER] = Try again")
+            continue
+    elif menu_state == 10: # invalid input state
+        clear()
+        print("Invalid input.")
+        menu_state = 0
+        enter = input("\n\n[ENTER] = Try again")
+        continue
             
