@@ -36,92 +36,118 @@ class card:
         if self.value == 0:  # Ace (1 center symbol)
             print(f"{style}{n_top}       ")
             print(f"{style}         ")
+            print(f"{style}         ")
             print(f"{style}    {s}    ")
+            print(f"{style}         ")
             print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 1:  # 2 (Top and Bottom)
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style}    {s}    ")
             print(f"{style}         ")
             print(f"{style}    {s}    ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 2:  # 3 (Top, Middle, Bottom)
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style}    {s}    ")
             print(f"{style}    {s}    ")
             print(f"{style}    {s}    ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 3:  # 4 (Four corners)
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style}  {s}   {s}  ")
             print(f"{style}         ")
             print(f"{style}  {s}   {s}  ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 4:  # 5 (Four corners + Middle)
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style}  {s}   {s}  ")
             print(f"{style}    {s}    ")
             print(f"{style}  {s}   {s}  ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 5:  # 6 (Two columns of three)
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style}  {s}   {s}  ")
             print(f"{style}  {s}   {s}  ")
             print(f"{style}  {s}   {s}  ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 6:  # 7 (Two columns of three + One upper middle)
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style}  {s}   {s}  ")
             print(f"{style}  {s} {s} {s}  ")
             print(f"{style}  {s}   {s}  ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 7:  # 8 
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style} {s}  {s}  {s} ")
             print(f"{style}    {s}    ")
             print(f"{style} {s}  {s}  {s} ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 8:  # 9 (Three columns of three)
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style} {s}  {s}  {s} ")
             print(f"{style} {s}  {s}  {s} ")
             print(f"{style} {s}  {s}  {s} ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 9:  # 10 
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style} {s}  {s}  {s} ")
             print(f"{style}  {s}   {s}  ")
             print(f"{style} {s}  {s}  {s} ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 10:  # Jack
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style}   {s} {s}   ")
             print(f"{style}    {s}    ")
             print(f"{style}   {s} {s}   ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 11:  # Queen
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style}   {s}{s}{s}   ")
             print(f"{style}   {s} {s}   ")
             print(f"{style}   {s}{s}{s}   ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
         elif self.value == 12:  # King
             print(f"{style}{n_top}       ")
+            print(f"{style}         ")
             print(f"{style}  {s} {s} {s}  ")
             print(f"{style}   {s}{s}{s}   ")
             print(f"{style}  {s} {s} {s}  ")
+            print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
 class deck:
@@ -133,7 +159,7 @@ class deck:
             for n in numbers:
                 self.collection[f"card{counter}"] = card(s, n)
                 counter += 1
-        self.order = [self.collection[f"card{c}"].string for c in range(self.quantity)] # set that actually stores the order of the cards
+        self.order = [self.collection[f"card{c}"] for c in range(self.quantity)] # set that actually stores the order of the cards
 
     def shuffle(self):
         random.shuffle(self.order)
@@ -261,7 +287,9 @@ while True:
             clear()
             pick_anim()
             clear()
-            print(f"The first card is {deck1.pick_first()}!")
+            first_card = deck1.pick_first()
+            print(f"The first card is {first_card.string}!\n")
+            first_card.glyph_show()
 
             enter = input("\n\n[ENTER] = Return")
             expl_menu_state = 0
@@ -269,20 +297,27 @@ while True:
         elif expl_menu_state == 3: # pick any card
             clear()
             pick_anim()
-            print(f"You picked {deck1.pick_any()}!")
-            enter = input("\n\n[ENTER] = Return")
+            any_card = deck1.pick_any()
+            print(f"You picked {any_card.string}!\n")
+            any_card.glyph_show()
+
+            enter = input("\n[ENTER] = Return")
             expl_menu_state = 0
             continue
         elif expl_menu_state == 4: # pick specific card on given position
             clear()
-            print(f"Choose a position from 0 to {deck1.quantity}.\n-> In this case, 0 is the card on top and {deck1.quantity} is the card in the bottom.")
+            print(f"Choose a position from 0 to {deck1.quantity}.")
+            print(f"{Fore.LIGHTBLACK_EX}-> In this case, 0 is the card on top and {deck1.quantity} is the card in the bottom.")
+            
+            
             pick_position = int(input("\nDesired position: "))
             picked_in_pos = deck1.pick_in_position(pick_position)
             pick_anim()
             clear()
-            print(f"Card in position {pick_position} is {picked_in_pos}!")
+            print(f"Card in position {pick_position} is {picked_in_pos.string}!\n")
+            picked_in_pos.glyph_show()
 
-            enter = input("\n\n[ENTER] = Return")
+            enter = input("\n[ENTER] = Return")
             expl_menu_state = 0
             continue
         elif expl_menu_state == 5:
