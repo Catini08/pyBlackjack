@@ -23,7 +23,11 @@ class card:
         self.suit = suit
         self.number = number
         self.value = values[number]
-        self.string = f"{number} {suit}"
+        if self.suit == "♡" or self.suit == "♦":
+            self.stringstyle = Back.WHITE + Fore.RED
+        else:
+            self.stringstyle = Back.WHITE + Fore.BLACK
+        self.string = f"{self.stringstyle}{Style.BRIGHT}{number} {suit}{Style.NORMAL}"
     def glyph_show(self): # card glyph displayer
         if self.suit == "♡" or self.suit == "♦":
             style = Back.WHITE + Fore.RED
@@ -214,9 +218,9 @@ while True:
         if deck_is_created == False:
             clear()
             print(
-                "------------INTERACTIVE DECK OF CARDS------------" \
+                f"{Style.BRIGHT}            Interective Deck of Cards            " \
                 "\n" \
-                "-------------------Main menu---------------------" \
+                f"{Style.NORMAL}                   Main menu                     " \
                 "\n\n\n" \
                 "[1] - Create deck\n\n[2] - Play Blackjack\n\n[3] - End session" \
                 "\n\n"
@@ -242,9 +246,9 @@ while True:
         else:
             clear()
             print(
-                "------------INTERACTIVE DECK OF CARDS------------" \
+                f"{Style.BRIGHT}            Interective Deck of Cards            " \
                 "\n" \
-                "-------------------Main menu---------------------" \
+                f"{Style.NORMAL}                   Main menu                     " \
                 "\n\n\n" \
                 "[1] - Explore deck\n\n[2] - Play Blackjack\n\n[3] - End session" \
                 "\n\n"
@@ -262,13 +266,13 @@ while True:
         if expl_menu_state == 0:
             clear()
             print(
-                    "------------INTERACTIVE DECK OF CARDS------------" \
-                    "\n" \
-                    "-----------------Exploring deck------------------" \
-                    "\n\n\n" \
-                    "[1] - Shuffle deck\n\n[2] - Pick first card\n\n[3] - Pick any card\n\n[4] - Pick specific card\n\n[5] - Exit exploration" \
-                    "\n\n"
-                    )
+                f"{Style.BRIGHT}            Interective Deck of Cards            " \
+                "\n" \
+                f"{Style.NORMAL}                 Exploring deck                  " \
+                "\n\n\n" \
+                "[1] - Shuffle deck\n\n[2] - Pick first card\n\n[3] - Pick any card\n\n[4] - Pick specific card\n\n[5] - Exit exploration" \
+                "\n\n"
+                )
             burnervar = input("Desired option: ")
             if burnervar.isdigit():
                 expl_menu_state = int(burnervar)
@@ -309,7 +313,7 @@ while True:
             print(f"Choose a position from 0 to {deck1.quantity}.")
             print(f"{Fore.LIGHTBLACK_EX}-> In this case, 0 is the card on top and {deck1.quantity} is the card in the bottom.")
             
-            
+
             pick_position = int(input("\nDesired position: "))
             picked_in_pos = deck1.pick_in_position(pick_position)
             pick_anim()
