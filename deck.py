@@ -14,8 +14,7 @@ def clear():
 suits = ["♠", "♡", "♦", "♣"]
 numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
-val_counter = 0 # dynamic value for each card
-values = {f"{numbers[c]}": c for c in range(len(numbers))}
+values = {f"{numbers[c]}": (c + 1) for c in range(len(numbers))}
 
 
 class card:
@@ -28,7 +27,7 @@ class card:
         else:
             self.stringstyle = Back.WHITE + Fore.BLACK
         self.string = f"{self.stringstyle}{Style.BRIGHT}{number} {suit}{Style.NORMAL}"
-    def glyph_show(self): # card glyph displayer
+    def glyph_show(self):  # card glyph displayer
         if self.suit == "♡" or self.suit == "♦":
             style = Back.WHITE + Fore.RED
         else:
@@ -37,7 +36,7 @@ class card:
         n_bot = self.number.rjust(2)
         s = self.suit
 
-        if self.value == 0:  # Ace (1 center symbol)
+        if self.value == 1:  # Ace
             print(f"{style}{n_top}       ")
             print(f"{style}         ")
             print(f"{style}         ")
@@ -46,114 +45,96 @@ class card:
             print(f"{style}         ")
             print(f"{style}       {n_bot}")
 
-        elif self.value == 1:  # 2 (Top and Bottom)
+        elif self.value == 2:  # 2 
             print(f"{style}{n_top}       ")
+            print(f"{style}    {s}    ")
             print(f"{style}         ")
+            print(f"{style}         ")
+            print(f"{style}         ")
+            print(f"{style}    {s}    ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 3:  # 3
+            print(f"{style}{n_top}       ")
             print(f"{style}    {s}    ")
             print(f"{style}         ")
             print(f"{style}    {s}    ")
             print(f"{style}         ")
+            print(f"{style}    {s}    ")
             print(f"{style}       {n_bot}")
 
-        elif self.value == 2:  # 3 (Top, Middle, Bottom)
+        elif self.value == 4:  # 4 
             print(f"{style}{n_top}       ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}         ")
+            print(f"{style}         ")
+            print(f"{style}         ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 5:  # 5 
+            print(f"{style}{n_top}       ")
+            print(f"{style}  {s}   {s}  ")
             print(f"{style}         ")
             print(f"{style}    {s}    ")
-            print(f"{style}    {s}    ")
-            print(f"{style}    {s}    ")
             print(f"{style}         ")
+            print(f"{style}  {s}   {s}  ")
             print(f"{style}       {n_bot}")
 
-        elif self.value == 3:  # 4 (Four corners)
+        elif self.value == 6:  # 6 
             print(f"{style}{n_top}       ")
-            print(f"{style}         ")
             print(f"{style}  {s}   {s}  ")
             print(f"{style}         ")
             print(f"{style}  {s}   {s}  ")
             print(f"{style}         ")
-            print(f"{style}       {n_bot}")
-
-        elif self.value == 4:  # 5 (Four corners + Middle)
-            print(f"{style}{n_top}       ")
-            print(f"{style}         ")
             print(f"{style}  {s}   {s}  ")
-            print(f"{style}    {s}    ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 7:  # 7 
+            print(f"{style}{n_top}       ")
             print(f"{style}  {s}   {s}  ")
-            print(f"{style}         ")
-            print(f"{style}       {n_bot}")
-
-        elif self.value == 5:  # 6 (Two columns of three)
-            print(f"{style}{n_top}       ")
-            print(f"{style}         ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}         ")
-            print(f"{style}       {n_bot}")
-
-        elif self.value == 6:  # 7 (Two columns of three + One upper middle)
-            print(f"{style}{n_top}       ")
-            print(f"{style}         ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}  {s} {s} {s}  ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}         ")
-            print(f"{style}       {n_bot}")
-
-        elif self.value == 7:  # 8 
-            print(f"{style}{n_top}       ")
-            print(f"{style}         ")
-            print(f"{style} {s}  {s}  {s} ")
-            print(f"{style}    {s}    ")
-            print(f"{style} {s}  {s}  {s} ")
-            print(f"{style}         ")
-            print(f"{style}       {n_bot}")
-
-        elif self.value == 8:  # 9 (Three columns of three)
-            print(f"{style}{n_top}       ")
-            print(f"{style}         ")
-            print(f"{style} {s}  {s}  {s} ")
-            print(f"{style} {s}  {s}  {s} ")
-            print(f"{style} {s}  {s}  {s} ")
-            print(f"{style}         ")
-            print(f"{style}       {n_bot}")
-
-        elif self.value == 9:  # 10 
-            print(f"{style}{n_top}       ")
-            print(f"{style}         ")
-            print(f"{style} {s}  {s}  {s} ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style} {s}  {s}  {s} ")
-            print(f"{style}         ")
-            print(f"{style}       {n_bot}")
-
-        elif self.value == 10:  # Jack
-            print(f"{style}{n_top}       ")
-            print(f"{style}         ")
-            print(f"{style}   {s} {s}   ")
-            print(f"{style}    {s}    ")
-            print(f"{style}   {s} {s}   ")
-            print(f"{style}         ")
-            print(f"{style}       {n_bot}")
-
-        elif self.value == 11:  # Queen
-            print(f"{style}{n_top}       ")
-            print(f"{style}         ")
-            print(f"{style}   {s}{s}{s}   ")
-            print(f"{style}   {s} {s}   ")
-            print(f"{style}   {s}{s}{s}   ")
-            print(f"{style}         ")
-            print(f"{style}       {n_bot}")
-
-        elif self.value == 12:  # King
-            print(f"{style}{n_top}       ")
             print(f"{style}         ")
             print(f"{style}  {s} {s} {s}  ")
-            print(f"{style}   {s}{s}{s}   ")
-            print(f"{style}  {s} {s} {s}  ")
             print(f"{style}         ")
+            print(f"{style}  {s}   {s}  ")
             print(f"{style}       {n_bot}")
 
+        elif self.value == 8:  # 8 
+            print(f"{style}{n_top}       ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}    {s}    ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}    {s}    ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 9:  # 9
+            print(f"{style}{n_top}       ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}    {s}    ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}       {n_bot}")
+
+        elif self.value == 10:  # 10
+            print(f"{style}{n_top}       ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}  {s} {s} {s}  ")
+            print(f"{style}         ")
+            print(f"{style}  {s} {s} {s}  ")
+            print(f"{style}  {s}   {s}  ")
+            print(f"{style}       {n_bot}")
+
+        else:  # face cards
+            emblem = {11: "♞", 12: "♛", 13: "♚"}[self.value]
+            print(f"{style}{n_top}       ")
+            print(f"{style}         ")
+            print(f"{style}    {s}    ")
+            print(f"{style}   {emblem}{emblem}{emblem}   ")
+            print(f"{style}    {s}    ")
+            print(f"{style}         ")
+            print(f"{style}       {n_bot}")
 class deck:
     def __init__(self):
         self.collection = {}
@@ -196,16 +177,16 @@ def shuffle_anim():# shuffle animation
 def pick_anim(): # pick animation
     for _ in range(3):
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking")
+        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking.")
+        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking.")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking..")
+        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking..")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking...")
+        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking...")
         time.sleep(0.15)
     clear()
 
@@ -218,7 +199,7 @@ while True:
         if deck_is_created == False:
             clear()
             print(
-                f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\n"
+                f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\n"
                 f"\n"
                 f" {Fore.CYAN}[1]{Fore.WHITE} Create deck\n\n"
                 f" {Fore.CYAN}[2]{Fore.WHITE} Play Blackjack\n\n"
@@ -236,7 +217,7 @@ while True:
                 clear()
                 deck_is_created = True
                 deck1 = deck()
-                print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\nDeck created!")
+                print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\nDeck created!")
                 time.sleep(0.8)
                 continue
             else:
@@ -245,7 +226,7 @@ while True:
         else:
             clear()
             print(
-                f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\n"
+                f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\n"
                 f"\n"
                 f" {Fore.CYAN}[1]{Fore.WHITE} Explore deck\n\n"
                 f" {Fore.CYAN}[2]{Fore.WHITE} Play Blackjack\n\n"
@@ -264,7 +245,7 @@ while True:
         if expl_menu_state == 0:
             clear()
             print(
-                f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n"
+                f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n"
                 f"\n"
                 f" {Fore.CYAN}[1]{Fore.WHITE} Shuffle deck\n\n"
                 f" {Fore.CYAN}[2]{Fore.WHITE} Pick first card\n\n"
@@ -291,7 +272,7 @@ while True:
             pick_anim()
             clear()
             first_card = deck1.pick_first()
-            print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nThe first card is {first_card.string}!\n")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nThe first card is {first_card.string}!\n")
             first_card.glyph_show()
 
             enter = input("\n\n[ENTER] = Return")
@@ -301,7 +282,7 @@ while True:
             clear()
             pick_anim()
             any_card = deck1.pick_any()
-            print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nYou picked {any_card.string}!\n")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nYou picked {any_card.string}!\n")
             any_card.glyph_show()
 
             enter = input("\n[ENTER] = Return")
@@ -309,7 +290,7 @@ while True:
             continue
         elif expl_menu_state == 4: # pick specific card on given position
             clear()
-            print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nChoose a position from 0 to {deck1.quantity}.")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nChoose a position from 0 to {deck1.quantity}.")
             print(f"{Fore.LIGHTBLACK_EX}-> In this case, 0 is the card on top and {deck1.quantity} is the card in the bottom.")
             
 
@@ -317,7 +298,7 @@ while True:
             picked_in_pos = deck1.pick_in_position(pick_position)
             pick_anim()
             clear()
-            print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nCard in position {pick_position} is {picked_in_pos.string}!\n")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nCard in position {pick_position} is {picked_in_pos.string}!\n")
             picked_in_pos.glyph_show()
 
             enter = input("\n[ENTER] = Return")
@@ -330,19 +311,19 @@ while True:
             continue
         elif expl_menu_state == 10: # invalid character
             clear()
-            print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nInvalid input.")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nInvalid input.")
             expl_menu_state = 0
             enter = input("\n\n[ENTER] = Try again")
             continue
         else: # invalid integer state
             clear()
-            print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nInvalid input.")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nInvalid input.")
             expl_menu_state = 0
             enter = input("\n\n[ENTER] = Try again")
             continue
     elif menu_state == 10: # invalid input state
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu {Style.RESET_ALL}\nInvalid input.")
+        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu {Style.RESET_ALL}\nInvalid input.")
         menu_state = 0
         enter = input("\n\n[ENTER] = Try again")
         continue
