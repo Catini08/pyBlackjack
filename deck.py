@@ -219,7 +219,6 @@ while True:
             clear()
             print(
                 f"{Style.BRIGHT}            Interective Deck of Cards            " \
-                "\n" \
                 f"{Style.NORMAL}                   Main menu                     " \
                 "\n\n\n" \
                 "[1] - Create deck\n\n[2] - Play Blackjack\n\n[3] - End session" \
@@ -247,7 +246,6 @@ while True:
             clear()
             print(
                 f"{Style.BRIGHT}            Interective Deck of Cards            " \
-                "\n" \
                 f"{Style.NORMAL}                   Main menu                     " \
                 "\n\n\n" \
                 "[1] - Explore deck\n\n[2] - Play Blackjack\n\n[3] - End session" \
@@ -267,7 +265,6 @@ while True:
             clear()
             print(
                 f"{Style.BRIGHT}            Interective Deck of Cards            " \
-                "\n" \
                 f"{Style.NORMAL}                 Exploring deck                  " \
                 "\n\n\n" \
                 "[1] - Shuffle deck\n\n[2] - Pick first card\n\n[3] - Pick any card\n\n[4] - Pick specific card\n\n[5] - Exit exploration" \
