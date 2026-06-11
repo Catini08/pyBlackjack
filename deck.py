@@ -18,9 +18,8 @@ def UI_top_bar(submenu = ""):
 suits = ["♠", "♡", "♦", "♣"]
 numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
-values = {f"{numbers[c]}": (c + 1) for c in range(len(numbers))}
-values["J", "Q", "K"] = 10
-
+# values had to be hardcoded because of glyph_show() and blackjack
+values = {"A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10}
 
 class card:
     def __init__(self, suit, number):
@@ -30,7 +29,7 @@ class card:
 
         self.stringstyle = Back.WHITE + Fore.RED if self.suit == "♡" or self.suit == "♦" else Back.WHITE + Fore.BLACK
         self.string = f"{self.stringstyle}{Style.BRIGHT}{number} {suit}{Style.RESET_ALL}"
-    def glyph_show(self):  # card glyph displayer
+    def glyph_lines(self):  # returns the 7 display lines for this card, without printing
         if self.suit == "♡" or self.suit == "♦":
             style = Back.WHITE + Fore.RED
         else:
@@ -39,105 +38,132 @@ class card:
         n_bot = self.number.rjust(2)
         s = self.suit
 
-        if self.value == 1:  # Ace
-            print(f"{style}{n_top}       ")
-            print(f"{style}         ")
-            print(f"{style}         ")
-            print(f"{style}    {s}    ")
-            print(f"{style}         ")
-            print(f"{style}         ")
-            print(f"{style}       {n_bot}")
+        if self.number == "A":  # Ace
+            return [
+                f"{style}{n_top}       ",
+                f"{style}         ",
+                f"{style}         ",
+                f"{style}    {s}    ",
+                f"{style}         ",
+                f"{style}         ",
+                f"{style}       {n_bot}",
+            ]
 
-        elif self.value == 2:  # 2 
-            print(f"{style}{n_top}       ")
-            print(f"{style}    {s}    ")
-            print(f"{style}         ")
-            print(f"{style}         ")
-            print(f"{style}         ")
-            print(f"{style}    {s}    ")
-            print(f"{style}       {n_bot}")
+        elif self.number == "2":
+            return [
+                f"{style}{n_top}       ",
+                f"{style}    {s}    ",
+                f"{style}         ",
+                f"{style}         ",
+                f"{style}         ",
+                f"{style}    {s}    ",
+                f"{style}       {n_bot}",
+            ]
 
-        elif self.value == 3:  # 3
-            print(f"{style}{n_top}       ")
-            print(f"{style}    {s}    ")
-            print(f"{style}         ")
-            print(f"{style}    {s}    ")
-            print(f"{style}         ")
-            print(f"{style}    {s}    ")
-            print(f"{style}       {n_bot}")
+        elif self.number == "3":
+            return [
+                f"{style}{n_top}       ",
+                f"{style}    {s}    ",
+                f"{style}         ",
+                f"{style}    {s}    ",
+                f"{style}         ",
+                f"{style}    {s}    ",
+                f"{style}       {n_bot}",
+            ]
 
-        elif self.value == 4:  # 4 
-            print(f"{style}{n_top}       ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}         ")
-            print(f"{style}         ")
-            print(f"{style}         ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}       {n_bot}")
+        elif self.number == "4":
+            return [
+                f"{style}{n_top}       ",
+                f"{style}  {s}   {s}  ",
+                f"{style}         ",
+                f"{style}         ",
+                f"{style}         ",
+                f"{style}  {s}   {s}  ",
+                f"{style}       {n_bot}",
+            ]
 
-        elif self.value == 5:  # 5 
-            print(f"{style}{n_top}       ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}         ")
-            print(f"{style}    {s}    ")
-            print(f"{style}         ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}       {n_bot}")
+        elif self.number == "5":
+            return [
+                f"{style}{n_top}       ",
+                f"{style}  {s}   {s}  ",
+                f"{style}         ",
+                f"{style}    {s}    ",
+                f"{style}         ",
+                f"{style}  {s}   {s}  ",
+                f"{style}       {n_bot}",
+            ]
 
-        elif self.value == 6:  # 6 
-            print(f"{style}{n_top}       ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}         ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}         ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}       {n_bot}")
+        elif self.number == "6":
+            return [
+                f"{style}{n_top}       ",
+                f"{style}  {s}   {s}  ",
+                f"{style}         ",
+                f"{style}  {s}   {s}  ",
+                f"{style}         ",
+                f"{style}  {s}   {s}  ",
+                f"{style}       {n_bot}",
+            ]
 
-        elif self.value == 7:  # 7 
-            print(f"{style}{n_top}       ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}         ")
-            print(f"{style}  {s} {s} {s}  ")
-            print(f"{style}         ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}       {n_bot}")
+        elif self.number == "7":
+            return [
+                f"{style}{n_top}       ",
+                f"{style}  {s}   {s}  ",
+                f"{style}         ",
+                f"{style}  {s} {s} {s}  ",
+                f"{style}         ",
+                f"{style}  {s}   {s}  ",
+                f"{style}       {n_bot}",
+            ]
 
-        elif self.value == 8:  # 8 
-            print(f"{style}{n_top}       ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}    {s}    ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}    {s}    ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}       {n_bot}")
+        elif self.number == "8":
+            return [
+                f"{style}{n_top}       ",
+                f"{style}  {s}   {s}  ",
+                f"{style}    {s}    ",
+                f"{style}  {s}   {s}  ",
+                f"{style}    {s}    ",
+                f"{style}  {s}   {s}  ",
+                f"{style}       {n_bot}",
+            ]
 
-        elif self.value == 9:  # 9
-            print(f"{style}{n_top}       ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}    {s}    ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}       {n_bot}")
+        elif self.number == "9":
+            return [
+                f"{style}{n_top}       ",
+                f"{style}  {s}   {s}  ",
+                f"{style}  {s}   {s}  ",
+                f"{style}    {s}    ",
+                f"{style}  {s}   {s}  ",
+                f"{style}  {s}   {s}  ",
+                f"{style}       {n_bot}",
+            ]
 
-        elif self.value == 10:  # 10
-            print(f"{style}{n_top}       ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}  {s} {s} {s}  ")
-            print(f"{style}         ")
-            print(f"{style}  {s} {s} {s}  ")
-            print(f"{style}  {s}   {s}  ")
-            print(f"{style}       {n_bot}")
+        elif self.number == "10":
+            return [
+                f"{style}{n_top}       ",
+                f"{style}  {s}   {s}  ",
+                f"{style}  {s} {s} {s}  ",
+                f"{style}         ",
+                f"{style}  {s} {s} {s}  ",
+                f"{style}  {s}   {s}  ",
+                f"{style}       {n_bot}",
+            ]
 
         else:  # face cards
-            emblem = {11: "♞", 12: "♛", 13: "♚"}[self.value]
-            print(f"{style}{n_top}       ")
-            print(f"{style}         ")
-            print(f"{style}    {s}    ")
-            print(f"{style}   {emblem}{emblem}{emblem}   ")
-            print(f"{style}    {s}    ")
-            print(f"{style}         ")
-            print(f"{style}       {n_bot}")
+            emblem = {"J": "♞", "Q": "♛", "K": "♚"}[self.number]
+            return [
+                f"{style}{n_top}       ",
+                f"{style}         ",
+                f"{style}    {s}    ",
+                f"{style}   {emblem}{emblem}{emblem}   ",
+                f"{style}    {s}    ",
+                f"{style}         ",
+                f"{style}       {n_bot}",
+            ]
+
+    def glyph_show(self):  # single-card display, now built on glyph_lines()
+        for line in self.glyph_lines():
+            print(line)
+            
 class deck:
     def __init__(self):
         self.collection = {}
@@ -350,6 +376,10 @@ while True:
             enter = input("\n\n[ENTER] = Try again")
             continue
     elif menu_state == 2: # play blackjack
+        clear()
+        UI_top_bar("Blackjack")
+
+
         menu_state = 10
         continue
     elif menu_state == 10: # invalid input state
