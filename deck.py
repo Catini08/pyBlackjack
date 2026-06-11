@@ -26,7 +26,7 @@ class card:
             self.stringstyle = Back.WHITE + Fore.RED
         else:
             self.stringstyle = Back.WHITE + Fore.BLACK
-        self.string = f"{self.stringstyle}{Style.BRIGHT}{number} {suit}{Style.NORMAL}"
+        self.string = f"{self.stringstyle}{Style.BRIGHT}{number} {suit}{Style.RESET_ALL}"
     def glyph_show(self):  # card glyph displayer
         if self.suit == "♡" or self.suit == "♦":
             style = Back.WHITE + Fore.RED
@@ -153,40 +153,40 @@ class deck:
     def pick_any(self):
         return self.order[random.randint(0, self.quantity)] # 
     def pick_in_position(self, position):
-        return self.order[position]
+            return self.order[(position - 1)]
 
 def shuffle_anim():# shuffle animation
     for _ in range(3):
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nShuffling")
+        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nShuffling")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nShuffling.")
+        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nShuffling.")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nShuffling..")
+        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nShuffling..")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nShuffling...")
+        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nShuffling...")
         time.sleep(0.15)
 
     clear()
-    print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nDeck shuffled!")
+    print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nDeck shuffled!")
     time.sleep(1)
 
 def pick_anim(): # pick animation
     for _ in range(3):
         clear()
-        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking")
+        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nPicking")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking.")
+        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nPicking.")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking..")
+        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nPicking..")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nPicking...")
+        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nPicking...")
         time.sleep(0.15)
     clear()
 
@@ -217,7 +217,7 @@ while True:
                 clear()
                 deck_is_created = True
                 deck1 = deck()
-                print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\nDeck created!")
+                print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\n\nDeck created!")
                 time.sleep(0.8)
                 continue
             else:
@@ -272,7 +272,7 @@ while True:
             pick_anim()
             clear()
             first_card = deck1.pick_first()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nThe first card is {first_card.string}!\n")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nThe first card is {first_card.string}!\n")
             first_card.glyph_show()
 
             enter = input("\n\n[ENTER] = Return")
@@ -282,7 +282,7 @@ while True:
             clear()
             pick_anim()
             any_card = deck1.pick_any()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nYou picked {any_card.string}!\n")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nYou picked {any_card.string}!\n")
             any_card.glyph_show()
 
             enter = input("\n[ENTER] = Return")
@@ -290,20 +290,29 @@ while True:
             continue
         elif expl_menu_state == 4: # pick specific card on given position
             clear()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nChoose a position from 0 to {deck1.quantity}.")
-            print(f"{Fore.LIGHTBLACK_EX}-> In this case, 0 is the card on top and {deck1.quantity} is the card in the bottom.")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nChoose a position from 1 to {deck1.quantity}.")
+            print(f"{Fore.LIGHTBLACK_EX}-> In this case, 1 is the card on top and {deck1.quantity} is the card at the bottom.")
             
+            burnervar = input("\nDesired position: ")
+            if isinstance(burnervar, int) == False: # protecting script from wrong input
+                burnervar = 0
+                expl_menu_state = 10
+                continue
+            else:
+                pick_position = int(burnervar)
+                if pick_position > deck1.quantity:
+                    expl_menu_state = 10
+                    continue
+                else:
+                    picked_in_pos = deck1.pick_in_position(pick_position)
+                    pick_anim()
+                    clear()
+                    print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nCard in position {pick_position} is {picked_in_pos.string}!\n")
+                    picked_in_pos.glyph_show()
 
-            pick_position = int(input("\nDesired position: "))
-            picked_in_pos = deck1.pick_in_position(pick_position)
-            pick_anim()
-            clear()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nCard in position {pick_position} is {picked_in_pos.string}!\n")
-            picked_in_pos.glyph_show()
-
-            enter = input("\n[ENTER] = Return")
-            expl_menu_state = 0
-            continue
+                    enter = input("\n[ENTER] = Return")
+                    expl_menu_state = 0
+                    continue
         elif expl_menu_state == 5:
             clear()
             expl_menu_state = 0
@@ -311,19 +320,19 @@ while True:
             continue
         elif expl_menu_state == 10: # invalid character
             clear()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nInvalid input.")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nInvalid input.")
             expl_menu_state = 0
             enter = input("\n\n[ENTER] = Try again")
             continue
         else: # invalid integer state
             clear()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nInvalid input.")
+            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nInvalid input.")
             expl_menu_state = 0
             enter = input("\n\n[ENTER] = Try again")
             continue
     elif menu_state == 10: # invalid input state
         clear()
-        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu {Style.RESET_ALL}\nInvalid input.")
+        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu {Style.RESET_ALL}\n\nInvalid input.")
         menu_state = 0
         enter = input("\n\n[ENTER] = Try again")
         continue
