@@ -11,10 +11,15 @@ def clear():
         ['cls' if os.name == 'nt' else 'clear']
     )
 
+def UI_top_bar(submenu = ""):
+    title = f" - {submenu}" if submenu else "" # evaluates if submenu is empty or not
+    print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK}{title} {Style.RESET_ALL}")
+
 suits = ["♠", "♡", "♦", "♣"]
 numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
 values = {f"{numbers[c]}": (c + 1) for c in range(len(numbers))}
+values["J", "Q", "K"] = 10
 
 
 class card:
@@ -22,10 +27,8 @@ class card:
         self.suit = suit
         self.number = number
         self.value = values[number]
-        if self.suit == "♡" or self.suit == "♦":
-            self.stringstyle = Back.WHITE + Fore.RED
-        else:
-            self.stringstyle = Back.WHITE + Fore.BLACK
+
+        self.stringstyle = Back.WHITE + Fore.RED if self.suit == "♡" or self.suit == "♦" else Back.WHITE + Fore.BLACK
         self.string = f"{self.stringstyle}{Style.BRIGHT}{number} {suit}{Style.RESET_ALL}"
     def glyph_show(self):  # card glyph displayer
         if self.suit == "♡" or self.suit == "♦":
@@ -158,35 +161,44 @@ class deck:
 def shuffle_anim():# shuffle animation
     for _ in range(3):
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nShuffling")
+        UI_top_bar("Exploring deck")
+        print("\nShuffling")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nShuffling.")
+        UI_top_bar("Exploring deck")
+        print("\nShuffling.")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nShuffling..")
+        UI_top_bar("Exploring deck")
+        print("\nShuffling..")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nShuffling...")
+        UI_top_bar("Exploring deck")
+        print("\nShuffling...")
         time.sleep(0.15)
 
     clear()
-    print(f"{Back.WHITE}{Fore.RED}● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nDeck shuffled!")
+    UI_top_bar("Exploring deck")
+    print("\nDeck shuffled!")
     time.sleep(1)
 
 def pick_anim(): # pick animation
     for _ in range(3):
         clear()
-        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nPicking")
+        UI_top_bar("Exploring deck")
+        print("\nPicking")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nPicking.")
+        UI_top_bar("Exploring deck")
+        print("\nPicking.")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nPicking..")
+        UI_top_bar("Exploring deck")
+        print("\nPicking..")
         time.sleep(0.15)
         clear()
-        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nPicking...")
+        UI_top_bar("Exploring deck")
+        print("\nPicking...")
         time.sleep(0.15)
     clear()
 
@@ -198,8 +210,8 @@ while True:
     if menu_state == 0: # main menu
         if deck_is_created == False:
             clear()
+            UI_top_bar("Main menu")
             print(
-                f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\n"
                 f"\n"
                 f" {Fore.CYAN}[1]{Fore.WHITE} Create deck\n\n"
                 f" {Fore.CYAN}[2]{Fore.WHITE} Play Blackjack\n\n"
@@ -217,7 +229,8 @@ while True:
                 clear()
                 deck_is_created = True
                 deck1 = deck()
-                print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\n\nDeck created!")
+                UI_top_bar("Main menu")
+                print("\nDeck created!")
                 time.sleep(0.8)
                 continue
             else:
@@ -225,8 +238,8 @@ while True:
                 continue
         else:
             clear()
+            UI_top_bar("Main menu")
             print(
-                f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu  {Style.RESET_ALL}\n"
                 f"\n"
                 f" {Fore.CYAN}[1]{Fore.WHITE} Explore deck\n\n"
                 f" {Fore.CYAN}[2]{Fore.WHITE} Play Blackjack\n\n"
@@ -244,8 +257,8 @@ while True:
     if menu_state == 1: # explore deck menu
         if expl_menu_state == 0:
             clear()
+            UI_top_bar("Exploring deck")
             print(
-                f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n"
                 f"\n"
                 f" {Fore.CYAN}[1]{Fore.WHITE} Shuffle deck\n\n"
                 f" {Fore.CYAN}[2]{Fore.WHITE} Pick first card\n\n"
@@ -272,7 +285,8 @@ while True:
             pick_anim()
             clear()
             first_card = deck1.pick_first()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nThe first card is {first_card.string}!\n")
+            UI_top_bar("Exploring deck")
+            print(f"\nThe first card is {first_card.string}!\n")
             first_card.glyph_show()
 
             enter = input("\n\n[ENTER] = Return")
@@ -282,7 +296,8 @@ while True:
             clear()
             pick_anim()
             any_card = deck1.pick_any()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nYou picked {any_card.string}!\n")
+            UI_top_bar("Exploring deck")
+            print(f"\nYou picked {any_card.string}!\n")
             any_card.glyph_show()
 
             enter = input("\n[ENTER] = Return")
@@ -290,7 +305,8 @@ while True:
             continue
         elif expl_menu_state == 4: # pick specific card on given position
             clear()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nChoose a position from 1 to {deck1.quantity}.")
+            UI_top_bar("Exploring deck")
+            print(f"\nChoose a position from 1 to {deck1.quantity}.")
             print(f"{Fore.LIGHTBLACK_EX}-> In this case, 1 is the card on top and {deck1.quantity} is the card at the bottom.")
             
             burnervar = input("\nDesired position: ")
@@ -307,7 +323,8 @@ while True:
                     picked_in_pos = deck1.pick_in_position(pick_position)
                     pick_anim()
                     clear()
-                    print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\nCard in position {pick_position} is {picked_in_pos.string}!\n")
+                    UI_top_bar("Exploring deck")
+                    print(f"Card in position {pick_position} is {picked_in_pos.string}!\n")
                     picked_in_pos.glyph_show()
 
                     enter = input("\n[ENTER] = Return")
@@ -320,20 +337,25 @@ while True:
             continue
         elif expl_menu_state == 10: # invalid character
             clear()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nInvalid input.")
+            UI_top_bar("Exploring deck")
+            print("\nInvalid input.")
             expl_menu_state = 0
             enter = input("\n\n[ENTER] = Try again")
             continue
         else: # invalid integer state
             clear()
-            print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Exploring deck {Style.RESET_ALL}\n\nInvalid input.")
+            UI_top_bar("Exploring deck")
+            print("\nInvalid input.")
             expl_menu_state = 0
             enter = input("\n\n[ENTER] = Try again")
             continue
+    elif menu_state == 2: # play blackjack
+        menu_state = 10
+        continue
     elif menu_state == 10: # invalid input state
         clear()
-        print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK} - Main menu {Style.RESET_ALL}\n\nInvalid input.")
+        UI_top_bar("Main menu")
+        print("\nInvalid input.")
         menu_state = 0
         enter = input("\n\n[ENTER] = Try again")
         continue
-            
