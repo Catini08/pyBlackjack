@@ -161,9 +161,9 @@ class card:
             ]
 
     def glyph_show(self):  # single-card display, now built on glyph_lines()
-        for line in self.glyph_lines():
-            print(line)
-            
+        for j in self.glyph_lines():
+            print(j)
+
 class deck:
     def __init__(self):
         self.collection = {}
@@ -227,6 +227,18 @@ def pick_anim(): # pick animation
         print("\nPicking...")
         time.sleep(0.15)
     clear()
+
+cardfaces = []
+
+def mult_cards_display(cardfaces):
+    full_rows = ["" for i in range(7)] # populates the full rows list with appendable data
+    for i in range(7): # for each line that composes a card
+        for c in cardfaces: # for each card in cardfaces
+            full_rows[i] += c.glyph_lines()[i] # in the line i, append the line i from card c
+            full_rows[i] += f"{Style.RESET_ALL}   " 
+
+    for r in range(len(full_rows)):
+        print(full_rows[r])
 
 menu_state = 0
 expl_menu_state = 0
@@ -336,7 +348,7 @@ while True:
             print(f"{Fore.LIGHTBLACK_EX}-> In this case, 1 is the card on top and {deck1.quantity} is the card at the bottom.")
             
             burnervar = input("\nDesired position: ")
-            if isinstance(burnervar, int) == False: # protecting script from wrong input
+            if burnervar.isdigit() == False: # protecting script from wrong input
                 burnervar = 0
                 expl_menu_state = 10
                 continue
@@ -380,7 +392,7 @@ while True:
         UI_top_bar("Blackjack")
 
 
-        menu_state = 10
+        enter = input()
         continue
     elif menu_state == 10: # invalid input state
         clear()
