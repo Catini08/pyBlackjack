@@ -11,9 +11,12 @@ def clear():
         ['cls' if os.name == 'nt' else 'clear']
     )
 
-def UI_top_bar(submenu = ""):
-    title = f" - {submenu}" if submenu else "" # evaluates if submenu is empty or not
-    print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards{Style.NORMAL}{Fore.BLACK}{title} {Style.RESET_ALL}")
+def UI_top_bar():
+    print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards                  {Style.NORMAL}{Fore.BLACK}{Style.RESET_ALL}")
+
+def submenu_info(menuname):
+    print(f"\n{Back.BLUE} • {Back.WHITE}{Fore.BLACK} {menuname} {Style.RESET_ALL}\n")
+
 
 suits = ["♠", "♡", "♦", "♣"]
 numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
@@ -187,43 +190,51 @@ class deck:
 def shuffle_anim():# shuffle animation
     for _ in range(3):
         clear()
-        UI_top_bar("Exploring deck")
+        UI_top_bar()
+        submenu_info("Explore deck menu")
         print("\nShuffling")
         time.sleep(0.15)
         clear()
-        UI_top_bar("Exploring deck")
+        UI_top_bar()
+        submenu_info("Explore deck menu")
         print("\nShuffling.")
         time.sleep(0.15)
         clear()
-        UI_top_bar("Exploring deck")
+        UI_top_bar()
+        submenu_info("Explore deck menu")
         print("\nShuffling..")
         time.sleep(0.15)
         clear()
-        UI_top_bar("Exploring deck")
+        UI_top_bar()
+        submenu_info("Explore deck menu")
         print("\nShuffling...")
         time.sleep(0.15)
 
     clear()
-    UI_top_bar("Exploring deck")
+    UI_top_bar()
     print("\nDeck shuffled!")
     time.sleep(1)
 
 def pick_anim(): # pick animation
     for _ in range(3):
         clear()
-        UI_top_bar("Exploring deck")
+        UI_top_bar()
+        submenu_info("Explore deck menu")
         print("\nPicking")
         time.sleep(0.15)
         clear()
-        UI_top_bar("Exploring deck")
+        UI_top_bar()
+        submenu_info("Explore deck menu")
         print("\nPicking.")
         time.sleep(0.15)
         clear()
-        UI_top_bar("Exploring deck")
+        UI_top_bar()
+        submenu_info("Explore deck menu")
         print("\nPicking..")
         time.sleep(0.15)
         clear()
-        UI_top_bar("Exploring deck")
+        UI_top_bar()
+        submenu_info("Explore deck menu")
         print("\nPicking...")
         time.sleep(0.15)
     clear()
@@ -235,10 +246,10 @@ def mult_cards_display(cardfaces):
     for i in range(7): # for each line that composes a card
         for c in cardfaces: # for each card in cardfaces
             full_rows[i] += c.glyph_lines()[i] # in the line i, append the line i from card c
-            full_rows[i] += f"{Style.RESET_ALL}   " 
-
+            full_rows[i] += f"{Style.RESET_ALL}   "
     for r in range(len(full_rows)):
         print(full_rows[r])
+        cardfaces = []
 
 menu_state = 0
 expl_menu_state = 0
@@ -248,12 +259,12 @@ while True:
     if menu_state == 0: # main menu
         if deck_is_created == False:
             clear()
-            UI_top_bar("Main menu")
+            UI_top_bar()
             print(
                 f"\n"
-                f" {Fore.CYAN}[1]{Fore.WHITE} Create deck\n\n"
-                f" {Fore.CYAN}[2]{Fore.WHITE} Play Blackjack\n\n"
-                f" {Fore.CYAN}[3]{Fore.WHITE} End session\n\n"
+                f" {Fore.RED}1{Fore.WHITE} Create deck\n\n"
+                f" {Fore.RED}2{Fore.WHITE} Play Blackjack\n\n"
+                f" {Fore.RED}3{Fore.WHITE} End session\n\n"
                 )
             
             burnervar = input("Desired option: ") # protects code from bad user input
@@ -267,21 +278,21 @@ while True:
                 clear()
                 deck_is_created = True
                 deck1 = deck()
-                UI_top_bar("Main menu")
+                UI_top_bar()
                 print("\nDeck created!")
                 time.sleep(0.8)
                 continue
             else:
                 menu_state_first = menu_state
                 continue
-        else:
+        else: #when deck is created
             clear()
-            UI_top_bar("Main menu")
+            UI_top_bar()
             print(
                 f"\n"
-                f" {Fore.CYAN}[1]{Fore.WHITE} Explore deck\n\n"
-                f" {Fore.CYAN}[2]{Fore.WHITE} Play Blackjack\n\n"
-                f" {Fore.CYAN}[3]{Fore.WHITE} End session\n\n"
+                f" {Fore.RED}1{Fore.WHITE} Explore deck\n\n"
+                f" {Fore.RED}2{Fore.WHITE} Play Blackjack\n\n"
+                f" {Fore.RED}3{Fore.WHITE} End session\n\n"
                 )
             
             burnervar = input("Desired option: ")
@@ -295,14 +306,14 @@ while True:
     if menu_state == 1: # explore deck menu
         if expl_menu_state == 0:
             clear()
-            UI_top_bar("Exploring deck")
+            UI_top_bar()
+            submenu_info("Explore deck menu")
             print(
-                f"\n"
-                f" {Fore.CYAN}[1]{Fore.WHITE} Shuffle deck\n\n"
-                f" {Fore.CYAN}[2]{Fore.WHITE} Pick first card\n\n"
-                f" {Fore.CYAN}[3]{Fore.WHITE} Pick any card\n\n"
-                f" {Fore.CYAN}[4]{Fore.WHITE} Pick specific card\n\n"
-                f" {Fore.CYAN}[5]{Fore.WHITE} Exit exploration\n\n"
+                f" {Fore.RED}1{Fore.WHITE} Shuffle deck\n\n"
+                f" {Fore.RED}2{Fore.WHITE} Pick first card\n\n"
+                f" {Fore.RED}3{Fore.WHITE} Pick any card\n\n"
+                f" {Fore.RED}4{Fore.WHITE} Pick specific card\n\n"
+                f" {Fore.RED}5{Fore.WHITE} Exit exploration\n\n"
                 )
             burnervar = input("Desired option: ")
             if burnervar.isdigit():
@@ -323,27 +334,30 @@ while True:
             pick_anim()
             clear()
             first_card = deck1.pick_first()
-            UI_top_bar("Exploring deck")
+            UI_top_bar()
+            submenu_info("Explore deck menu")
             print(f"\nThe first card is {first_card.string}!\n")
             first_card.glyph_show()
 
-            enter = input("\n\n[ENTER] = Return")
+            enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Return")
             expl_menu_state = 0
             continue
         elif expl_menu_state == 3: # pick any card
             clear()
             pick_anim()
             any_card = deck1.pick_any()
-            UI_top_bar("Exploring deck")
+            UI_top_bar()
+            submenu_info("Explore deck menu")
             print(f"\nYou picked {any_card.string}!\n")
             any_card.glyph_show()
 
-            enter = input("\n[ENTER] = Return")
+            enter = input(f"\n{Fore.RED}ENTER{Style.RESET_ALL} = Return")
             expl_menu_state = 0
             continue
         elif expl_menu_state == 4: # pick specific card on given position
             clear()
-            UI_top_bar("Exploring deck")
+            UI_top_bar()
+            submenu_info("Explore deck menu")
             print(f"\nChoose a position from 1 to {deck1.quantity}.")
             print(f"{Fore.LIGHTBLACK_EX}-> In this case, 1 is the card on top and {deck1.quantity} is the card at the bottom.")
             
@@ -361,11 +375,12 @@ while True:
                     picked_in_pos = deck1.pick_in_position(pick_position)
                     pick_anim()
                     clear()
-                    UI_top_bar("Exploring deck")
+                    UI_top_bar()
+                    submenu_info("Explore deck menu")
                     print(f"Card in position {pick_position} is {picked_in_pos.string}!\n")
                     picked_in_pos.glyph_show()
 
-                    enter = input("\n[ENTER] = Return")
+                    enter = input(f"\n{Fore.RED}ENTER{Style.RESET_ALL} = Return")
                     expl_menu_state = 0
                     continue
         elif expl_menu_state == 5:
@@ -375,29 +390,33 @@ while True:
             continue
         elif expl_menu_state == 10: # invalid character
             clear()
-            UI_top_bar("Exploring deck")
+            UI_top_bar()
+            submenu_info("Explore deck menu")
             print("\nInvalid input.")
             expl_menu_state = 0
-            enter = input("\n\n[ENTER] = Try again")
+            enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
             continue
         else: # invalid integer state
             clear()
-            UI_top_bar("Exploring deck")
+            UI_top_bar()
+            submenu_info("Explore deck menu")
             print("\nInvalid input.")
             expl_menu_state = 0
-            enter = input("\n\n[ENTER] = Try again")
+            enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
             continue
-    elif menu_state == 2: # play blackjack
+    elif menu_state == 2: # play blackjack menu
         clear()
-        UI_top_bar("Blackjack")
+        UI_top_bar()
+        submenu_info("Explore deck menu")
 
+        print(f"\n ")
 
         enter = input()
         continue
     elif menu_state == 10: # invalid input state
         clear()
-        UI_top_bar("Main menu")
+        UI_top_bar()
         print("\nInvalid input.")
         menu_state = 0
-        enter = input("\n\n[ENTER] = Try again")
+        enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
         continue
