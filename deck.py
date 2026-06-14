@@ -176,7 +176,7 @@ class deck:
             for n in numbers:
                 self.collection[f"card{counter}"] = card(s, n)
                 counter += 1
-        self.order = [self.collection[f"card{c}"] for c in range(self.quantity)] # set that actually stores the order of the cards
+        self.order = [self.collection[f"card{c}"] for c in range(len(self.collection))] # set that actually stores the order of the cards
 
     def shuffle(self):
         random.shuffle(self.order)
@@ -239,8 +239,6 @@ def pick_anim(): # pick animation
         time.sleep(0.15)
     clear()
 
-cardfaces = []
-
 def mult_cards_display(cardfaces):
     full_rows = ["" for i in range(7)] # populates the full rows list with appendable data
     for i in range(7): # for each line that composes a card
@@ -249,60 +247,32 @@ def mult_cards_display(cardfaces):
             full_rows[i] += f"{Style.RESET_ALL}   "
     for r in range(len(full_rows)):
         print(full_rows[r])
-        cardfaces = []
 
 menu_state = 0
 expl_menu_state = 0
-deck_is_created = False
+blkjk_menu_state = 0
+deck_is_created = True
+deck1 = deck()
 
 while True:
     if menu_state == 0: # main menu
-        if deck_is_created == False:
-            clear()
-            UI_top_bar()
-            print(
-                f"\n"
-                f" {Fore.RED}1{Fore.WHITE} Create deck\n\n"
-                f" {Fore.RED}2{Fore.WHITE} Play Blackjack\n\n"
-                f" {Fore.RED}3{Fore.WHITE} End session\n\n"
-                )
-            
-            burnervar = input("Desired option: ") # protects code from bad user input
-            if burnervar.isdigit():
-                menu_state_first = int(burnervar)
-            else:
-                menu_state = 10
-                continue
-
-            if menu_state_first == 1: # creating deck
-                clear()
-                deck_is_created = True
-                deck1 = deck()
-                UI_top_bar()
-                print("\nDeck created!")
-                time.sleep(0.8)
-                continue
-            else:
-                menu_state_first = menu_state
-                continue
-        else: #when deck is created
-            clear()
-            UI_top_bar()
-            print(
-                f"\n"
-                f" {Fore.RED}1{Fore.WHITE} Explore deck\n\n"
-                f" {Fore.RED}2{Fore.WHITE} Play Blackjack\n\n"
-                f" {Fore.RED}3{Fore.WHITE} End session\n\n"
-                )
-            
-            burnervar = input("Desired option: ")
-            if burnervar.isdigit():
-                menu_state = int(burnervar)
-                continue
-            else:
-                menu_state = 10
-                burnervar = 0
-                continue
+        clear()
+        UI_top_bar()
+        print(
+            f"\n"
+            f" {Fore.RED}1{Fore.WHITE} Explore deck\n\n"
+            f" {Fore.RED}2{Fore.WHITE} Play Blackjack\n\n"
+            f" {Fore.RED}3{Fore.WHITE} End session\n\n"
+            )
+        
+        burnervar = input("Desired option: ")
+        if burnervar.isdigit():
+            menu_state = int(burnervar)
+            continue
+        else:
+            menu_state = 10
+            burnervar = 0
+            continue
     if menu_state == 1: # explore deck menu
         if expl_menu_state == 0:
             clear()
@@ -404,15 +374,81 @@ while True:
             expl_menu_state = 0
             enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
             continue
-    elif menu_state == 2: # play blackjack menu
-        clear()
-        UI_top_bar()
-        submenu_info("Explore deck menu")
+    elif menu_state == 2: # BLACKJACK
+        balance = 100
+        def balance_display():
+            print(
+                f"{Back.GREEN}{Fore.BLACK} > {Back.WHITE} Your Balance: {Fore.GREEN}${balance} {Style.RESET_ALL}"
+            )
+        if blkjk_menu_state == 0: # blackjack main menu
+            clear()
+            UI_top_bar()
+            submenu_info("Blackjack")
+            print(
+                    f"\n"
+                    f" {Fore.GREEN}1{Fore.WHITE} Play\n\n"
+                    f" {Fore.GREEN}2{Fore.WHITE} Exit game\n\n"
+                    )
 
-        print(f"\n ")
+            burnervar = input("Desired option: ")
+            if burnervar.isdigit():
+                blkjk_menu_state = int(burnervar)
+                continue
+            else:
+                blkjk_menu_state = 10
+                burnervar = 0
+                continue
+        elif blkjk_menu_state == 1: # playing ---
 
-        enter = input()
-        continue
+            counter = 0
+            for _ in range(2): # nested loops to double deck size
+                for s in suits:
+                    for n in numbers:
+                        deck1.collection[f"card{counter}"] = card(s, n)
+                        counter += 1
+            counter = 0
+            deck1.order = [deck1.collection[f"card{c}"] for c in range(len(deck1.collection))]
+            deck1.shuffle()
+
+            dealer_hand = [deck1.order.pop(0) for _ in range(2)]
+            player_hand = [deck1.order.pop(0) for _ in range(2)]
+            clear()
+            UI_top_bar()
+            submenu_info("Blackjack")
+
+            print(f"\n{Back.BLUE}{Fore.BLACK} Dealer's hand: \n")
+            mult_cards_display(dealer_hand)
+
+            print(f"\n\n{Back.BLUE}{Fore.BLACK} Your hand: \n")
+            mult_cards_display(player_hand)
+            break
+            
+
+        elif blkjk_menu_state == 2: # exit
+            clear()
+            blkjk_menu_state = 0
+            menu_state = 0
+            continue
+        elif blkjk_menu_state == 10: # ERROR handler
+            clear()
+            UI_top_bar()
+            submenu_info("Blackjack")
+            print("\nInvalid input.")
+
+            blkjk_menu_state = 0
+            enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = Try again")
+            continue
+        else:   # ERROR handler for any other numeric input
+            clear()
+            UI_top_bar()
+            submenu_info("Blackjack")
+            print("\nInvalid input.")
+
+            blkjk_menu_state = 0
+            enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = Try again")
+            continue
+
+
     elif menu_state == 10: # invalid input state
         clear()
         UI_top_bar()
