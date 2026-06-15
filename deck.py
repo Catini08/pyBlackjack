@@ -260,9 +260,9 @@ while True:
         UI_top_bar()
         print(
             f"\n"
-            f" {Fore.RED}1{Fore.WHITE} Explore deck\n\n"
-            f" {Fore.RED}2{Fore.WHITE} Play Blackjack\n\n"
-            f" {Fore.RED}3{Fore.WHITE} End session\n\n"
+            f" {Fore.YELLOW}1{Fore.WHITE} Explore deck\n\n"
+            f" {Fore.YELLOW}2{Fore.WHITE} Play Blackjack\n\n"
+            f" {Fore.YELLOW}3{Fore.WHITE} End session\n\n"
             )
         
         burnervar = input("Desired option: ")
@@ -448,6 +448,12 @@ while True:
             enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = Try again")
             continue
 
+    elif menu_state == 3: # end session
+        clear()
+        print(f"{Fore.RED}Session ended.")
+        time.sleep(1)
+        clear()
+        break
 
     elif menu_state == 10: # invalid input state
         clear()
