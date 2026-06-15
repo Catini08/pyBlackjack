@@ -410,17 +410,27 @@ while True:
             deck1.order = [deck1.collection[f"card{c}"] for c in range(len(deck1.collection))]
             deck1.shuffle()
 
-            dealer_hand = [deck1.order.pop(0) for _ in range(2)]
+            # dealer hand
+            dealer_hand = [deck1.order.pop(0) for _ in range(1)]
+            d_hand_values = [v.value for v in dealer_hand]
+            d_hand_total = sum(d_hand_values)
+
+            # player hand
             player_hand = [deck1.order.pop(0) for _ in range(2)]
+            p_hand_values = [v.value for v in player_hand]
+            p_hand_total = sum(p_hand_values)
+
             clear()
             UI_top_bar()
             submenu_info("Blackjack")
 
             print(f"\n{Back.BLUE}{Fore.BLACK} Dealer's hand: \n")
             mult_cards_display(dealer_hand)
+            print(f"{Fore.BLUE}Hand value: {d_hand_total}") # test print
 
             print(f"\n\n{Back.BLUE}{Fore.BLACK} Your hand: \n")
             mult_cards_display(player_hand)
+            print(f"{Fore.BLUE}Hand value: {p_hand_total}") # test print
             break
             
 
