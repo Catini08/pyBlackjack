@@ -376,9 +376,14 @@ while True:
             continue
     elif menu_state == 2: # BLACKJACK
         balance = 100
+        bet = 0
         def balance_display():
             print(
-                f"{Back.GREEN}{Fore.BLACK} > {Back.WHITE} Your Balance: {Fore.GREEN}${balance} {Style.RESET_ALL}"
+                f"{Back.GREEN}{Fore.BLACK} $ {Back.WHITE} Balance: {Fore.GREEN}${balance} {Style.RESET_ALL}"
+            )
+        def bet_display():
+            print(
+                f"{Back.YELLOW}{Fore.BLACK} > {Back.WHITE} Current bet: {Fore.YELLOW}${bet} {Style.RESET_ALL}"
             )
         if blkjk_menu_state == 0: # blackjack main menu
             clear()
@@ -399,7 +404,7 @@ while True:
                 burnervar = 0
                 continue
         elif blkjk_menu_state == 1: # playing ---
-
+            
             counter = 0
             for _ in range(2): # nested loops to double deck size
                 for s in suits:
@@ -410,28 +415,56 @@ while True:
             deck1.order = [deck1.collection[f"card{c}"] for c in range(len(deck1.collection))]
             deck1.shuffle()
 
-            # dealer hand
+            # dealer hand DECLARATION
             dealer_hand = [deck1.order.pop(0) for _ in range(1)]
             d_hand_values = [v.value for v in dealer_hand]
             d_hand_total = sum(d_hand_values)
 
-            # player hand
+            # player hand DECLARATION
             player_hand = [deck1.order.pop(0) for _ in range(2)]
             p_hand_values = [v.value for v in player_hand]
             p_hand_total = sum(p_hand_values)
 
-            clear()
-            UI_top_bar()
-            submenu_info("Blackjack")
+            while balance > 0:
 
-            print(f"\n{Back.BLUE}{Fore.BLACK} Dealer's hand: \n")
-            mult_cards_display(dealer_hand)
-            print(f"{Fore.BLUE}Hand value: {d_hand_total}") # test print
+                # choosing initial bet
+                clear()
+                UI_top_bar()
+                submenu_info("Blackjack")
+                print(f"\n")
+                balance_display()
 
-            print(f"\n\n{Back.BLUE}{Fore.BLACK} Your hand: \n")
-            mult_cards_display(player_hand)
-            print(f"{Fore.BLUE}Hand value: {p_hand_total}") # test print
-            break
+                bet = 0
+
+                burnervar = input("Initial bet: ") # FIX (main goal is set game dynamic)
+                if burnervar.isdigit() and int(burnervar) < balance:
+                    bet = int(burnervar)
+                    balance -= bet
+                    burnervar = 0
+            
+                else:
+                    burnervar = 0
+                    blkjk_menu_state = 10
+                    continue
+
+                ## actually playing
+                clear()
+                UI_top_bar()
+                submenu_info("Blackjack")
+
+                # shows dealer hand
+                print(f"\n{Style.BRIGHT}Dealer's hand:")
+                print(f"-> {Fore.BLUE}Hand value: {Style.RESET_ALL}{d_hand_total}\n")
+                mult_cards_display(dealer_hand)
+                
+                # shows player hand
+                print(f"\n\n{Style.BRIGHT}Your hand:")
+                print(f"-> {Fore.BLUE}Hand value: {Style.RESET_ALL}{p_hand_total}\n")
+                mult_cards_display(player_hand)
+                print(f"\n")
+                balance_display()
+                bet_display()
+                break
             
 
         elif blkjk_menu_state == 2: # exit
