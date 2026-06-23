@@ -7,7 +7,9 @@ from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 import sys
 import io
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+import functools
+print = functools.partial(print, flush=True) # prevents time.sleep() do make terminal misbehave
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8') # ensures utf8 output
 
 def clear():
     subprocess.run(
@@ -287,11 +289,11 @@ while True:
         burnervar = input("Desired option: ")
         if burnervar.isdigit():
             menu_state = int(burnervar)
-            continue
+    
         else:
             menu_state = 10
             burnervar = 0
-            continue
+
     if menu_state == 1: # explore deck menu
         if expl_menu_state == 0:
             clear()
@@ -394,8 +396,6 @@ while True:
             enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
             continue
     elif menu_state == 2: # BLACKJACK
-        balance = 100
-        bet = 0
         backface = card("0", "BACK") # card backface
         def balance_display():
             print(
@@ -406,6 +406,8 @@ while True:
                 f"{Back.YELLOW}{Fore.BLACK} > {Back.WHITE} Current bet: {Fore.YELLOW}${bet} {Style.RESET_ALL}"
             )
         if blkjk_menu_state == 0: # blackjack main menu
+            balance = 100
+            bet = 0
             clear()
             UI_top_bar()
             submenu_info("Blackjack")
@@ -418,11 +420,9 @@ while True:
             burnervar = input("Desired option: ")
             if burnervar.isdigit():
                 blkjk_menu_state = int(burnervar)
-                continue
             else:
                 blkjk_menu_state = 10
                 burnervar = 0
-                continue
         elif blkjk_menu_state == 1: # playing ---
             gamestate = "round1"
             counter = 0
@@ -471,51 +471,92 @@ while True:
 
                 did_stand = False
 
-                while gamestate == "mainloop":
-                    if p_hand_total > 21: # loss condition
-                        break
+            while gamestate == "mainloop":
+                d_hand_values = [v.value for v in dealer_hand]
+                d_hand_total = sum(d_hand_values)
+                for i in dealer_hand: # auto considers an A = 11 if the hand is lower than 21
+                    if i.number == "A" and (d_hand_total + 10) < 21:
+                        d_hand_total += 10
 
-                    # FIX win condiditon below
-                    if d_hand_total > 21 or did_stand == True and (21 - p_hand_total) < (21 - d_hand_total): # win condition
-                        balance += bet + bet * 1.5
-                        gamestate = "round1"
-                        dealer_hand = [deck1.order.pop(0), backface]
+                p_hand_values = [v.value for v in player_hand]
+                p_hand_total = sum(p_hand_values)
+                for j in player_hand:
+                    if j.number == "A" and (p_hand_total + 10) < 21:
+                        p_hand_total += 10
+
+                if did_stand == True and d_hand_total < 17: # dealer adds 1 card at a time
+                        if dealer_hand[1] == backface :
+                            del dealer_hand[1] # makes the backface not be displayed
+                        dealer_hand.append(deck1.order.pop(0))
                         d_hand_values = [v.value for v in dealer_hand]
                         d_hand_total = sum(d_hand_values)
-
-                        player_hand = [deck1.order.pop(0) for _ in range(2)]
-                        p_hand_values = [v.value for v in player_hand]
-                        p_hand_total = sum(p_hand_values)
-
-                        clear()
-                        UI_top_bar()
-                        submenu_info("Blackjack")
-                        print(f"\n-> {Fore.GREEN}Round won!")
-                        enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = OK")
-                        continue
-                    
-                    d_hand_values = [v.value for v in dealer_hand]
-                    d_hand_total = sum(d_hand_values)
-                    p_hand_values = [v.value for v in player_hand]
-                    p_hand_total = sum(p_hand_values)
-
+                elif d_hand_total > 21: # dealer busts
+                    balance += bet + bet * 1.5
+                    gamestate = "round1"
 
                     clear()
                     UI_top_bar()
                     submenu_info("Blackjack")
+                    print(f"\n-> {Fore.GREEN}Dealer BUSTED, Round won!")
+                    enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = OK")
+                    continue
+                elif did_stand == True and d_hand_total >= 17: # dealer stopped drawing
+                    did_stand = False
+                    if p_hand_total > d_hand_total: # player closer to 21 = player wins
+                        balance += bet + bet * 1.5
+                        gamestate = "round1"
 
-                    # shows dealer hand
-                    print(f"{Style.BRIGHT}-> {Fore.BLUE}Dealer's hand{Style.RESET_ALL}")
-                    print(f"Hand value: {Style.RESET_ALL}{d_hand_total}")
-                    mult_cards_display(dealer_hand)
-                    
-                    # shows player hand
-                    print(f"{Style.BRIGHT}-> {Fore.BLUE}Your hand{Style.RESET_ALL}")
-                    print(f"Hand value: {Style.RESET_ALL}{p_hand_total}")
-                    mult_cards_display(player_hand)
-                    print(f"\n")
-                    balance_display()
-                    bet_display()
+                        clear()
+                        UI_top_bar()
+                        submenu_info("Blackjack")
+                        print(f"\n-> {Fore.GREEN}You WIN! Your {p_hand_total} beats dealer's {d_hand_total}.")
+                        enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = OK")
+                        continue
+                    elif p_hand_total == d_hand_total: # push/tie
+                        balance += bet
+                        gamestate = "round1"
+
+                        clear()
+                        UI_top_bar()
+                        submenu_info("Blackjack")
+                        print(f"\n-> {Fore.YELLOW}PUSH! Tie at {p_hand_total}. Bet returned.")
+                        enter = input(f"\n\n{Fore.YELLOW}ENTER{Style.RESET_ALL} = OK")
+                        continue
+                    else: # dealer closer to 21 = dealer wins
+                        gamestate = "busted"
+
+                        clear()
+                        UI_top_bar()
+                        submenu_info("Blackjack")
+                        print(f"\n{Style.BRIGHT}-> {Fore.BLUE}Dealer's hand{Style.RESET_ALL}")
+                        print(f"Hand value: {Style.RESET_ALL}{d_hand_total}")
+                        mult_cards_display(dealer_hand)
+
+                        print(f"\n-> {Fore.RED}Dealer wins. Their {d_hand_total} beats your {p_hand_total}.")
+                        enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = OK")
+                        continue
+
+                clear() # main UI loop --------
+                UI_top_bar()
+                submenu_info("Blackjack")
+
+                # shows dealer hand
+                print(f"{Style.BRIGHT}-> {Fore.BLUE}Dealer's hand{Style.RESET_ALL}")
+                print(f"Hand value: {Style.RESET_ALL}{d_hand_total}")
+                mult_cards_display(dealer_hand)
+                
+                # shows player hand
+                print(f"\n{Style.BRIGHT}-> {Fore.BLUE}Your hand{Style.RESET_ALL}")
+                print(f"Hand value: {Style.RESET_ALL}{p_hand_total}")
+                mult_cards_display(player_hand)
+                print(f"\n")
+                balance_display()
+                bet_display()
+
+                if did_stand == True:
+                    time.sleep(0.8)
+                    continue
+                if did_stand == False:
                     print(
                         f"\n{Fore.GREEN}H{Fore.WHITE} Hit"
                         f" {Fore.GREEN}D{Fore.WHITE} Double"
@@ -525,68 +566,72 @@ while True:
 
                     burnervar = input(f"\n Desired option: ").upper()
 
-                    if burnervar.isalpha():
-                        if burnervar == "H": # HIT
-                            player_hand.append(deck1.order.pop(0))
-                            continue
-                        elif burnervar == "D" and (bet * 2) < balance: # DOUBLE
-                            balance -= bet
-                            bet += bet
-                            player_hand.append(deck1.order.pop(0))
-                            continue
-                        elif burnervar == "S": # STAND
-                            while d_hand_total <= 17:
-                                did_stand = True
-                                if dealer_hand[1] == backface :
-                                    del dealer_hand[1] # makes the backface not be displayed
-                                dealer_hand.append(deck1.order.pop(0))
-                                d_hand_values = [v.value for v in dealer_hand]
-                                d_hand_total = sum(d_hand_values)
-                                p_hand_values = [v.value for v in player_hand]
-                                p_hand_total = sum(p_hand_values)
+                if burnervar.isalpha():
+                    if burnervar == "H": # HIT
+                        player_hand.append(deck1.order.pop(0))
+                        d_hand_values = [v.value for v in dealer_hand]
+                        d_hand_total = sum(d_hand_values)
 
-                                clear()
-                                UI_top_bar()
-                                submenu_info("Blackjack")
+                        p_hand_values = [v.value for v in player_hand]
+                        p_hand_total = sum(p_hand_values)
 
-                                # shows dealer hand
-                                print(f"{Style.BRIGHT}-> {Fore.BLUE}Dealer's hand{Style.RESET_ALL}")
-                                print(f"Hand value: {Style.RESET_ALL}{d_hand_total}")
-                                mult_cards_display(dealer_hand)
-                                
-                                # shows player hand
-                                print(f"{Style.BRIGHT}-> {Fore.BLUE}Your hand{Style.RESET_ALL}")
-                                print(f"Hand value: {Style.RESET_ALL}{p_hand_total}")
-                                mult_cards_display(player_hand)
-                                print(f"\n")
-                                balance_display()
-                                bet_display()
-                                time.sleep(0.5)
-                                clear()
-                            continue
-                        else:
-                                clear()
-                                UI_top_bar()
-                                submenu_info("Blackjack")
-                                print("\nInvalid input.")
-                                enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
-                                continue
+                        if p_hand_total > 21:
+                            gamestate = "busted"
+                            clear()
+                            UI_top_bar()
+                            submenu_info("Blackjack")
+                            print(f"\n-> {Fore.RED}You BUSTED with {p_hand_total}!")
+                            enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = OK")
+                            break
+                        continue
+                    elif burnervar == "D" and bet <= balance: # DOUBLE
+                        balance -= bet
+                        bet += bet
+                        player_hand.append(deck1.order.pop(0))
+                        d_hand_values = [v.value for v in dealer_hand]
+                        d_hand_total = sum(d_hand_values)
+
+                        p_hand_values = [v.value for v in player_hand]
+                        p_hand_total = sum(p_hand_values)
+                        if p_hand_total > 21:
+                            gamestate = "busted"
+                            clear()
+                            UI_top_bar()
+                            submenu_info("Blackjack")
+                            print(f"\n{Style.BRIGHT}-> {Fore.BLUE}Your hand{Style.RESET_ALL}")
+                            print(f"Hand value: {Style.RESET_ALL}{p_hand_total}")
+                            mult_cards_display(player_hand)
+
+                            print(f"\n-> {Fore.RED}You BUSTED with {p_hand_total}!")
+                            enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = OK")
+                            break
+                        continue
+                    elif burnervar == "S": # STAND
+                        did_stand = True
                     else:
                         clear()
                         UI_top_bar()
                         submenu_info("Blackjack")
                         print("\nInvalid input.")
                         enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
-                        continue
+                else:
+                    clear()
+                    UI_top_bar()
+                    submenu_info("Blackjack")
+                    print("\nInvalid input.")
+                    enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
+                    continue
             
-            clear() # game over
-            UI_top_bar()
-            submenu_info("Blackjack")
-            print(f"\n-> {Fore.RED}GAME OVER")
-            enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
-            continue
-
-            
+            while gamestate == "busted":
+                blkjk_menu_state = 1
+                gamestate = "round1"
+                if balance == 0:
+                    blkjk_menu_state = 0
+                    clear()
+                    UI_top_bar()
+                    submenu_info("Blackjack")
+                    print(f"\n-> {Fore.RED}Balance is $0. GAME OVER.")
+                    enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Reset game")
 
         elif blkjk_menu_state == 2: # exit
             clear()
