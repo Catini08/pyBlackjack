@@ -205,7 +205,7 @@ class deck:
     def pick_first(self):
         return self.order[0]
     def pick_any(self):
-        return self.order[random.randint(0, self.quantity)] # 
+        return self.order[random.randint(0, (self.quantity - 1))] # 
     def pick_in_position(self, position):
             return self.order[(position - 1)]
 
@@ -476,7 +476,7 @@ while True:
                 d_hand_values = [v.value for v in dealer_hand]
                 d_hand_total = sum(d_hand_values)
                 for i in dealer_hand: # auto considers an A = 11 if the hand is lower than 21
-                    if i.number == "A" and (d_hand_total + 10) < 21:
+                    if i.number == "A" and (d_hand_total + 10) <= 21:
                         d_hand_total += 10
 
                 p_hand_values = [v.value for v in player_hand]
