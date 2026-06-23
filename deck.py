@@ -383,17 +383,17 @@ while True:
             clear()
             UI_top_bar()
             submenu_info("Explore deck menu")
-            print("\nInvalid input.")
+            print(f"\n  {Fore.YELLOW}!{Style.RESET_ALL}  Invalid option.")
             expl_menu_state = 0
-            enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
+            enter = input(f"\n  {Fore.YELLOW}ENTER{Style.RESET_ALL} = try again")
             continue
         else: # invalid integer state
             clear()
             UI_top_bar()
             submenu_info("Explore deck menu")
-            print("\nInvalid input.")
+            print(f"\n  {Fore.YELLOW}!{Style.RESET_ALL}  Invalid option.")
             expl_menu_state = 0
-            enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
+            enter = input(f"\n  {Fore.YELLOW}ENTER{Style.RESET_ALL} = try again")
             continue
     elif menu_state == 2: # BLACKJACK
         backface = card("0", "BACK") # card backface
@@ -456,8 +456,8 @@ while True:
                     clear()
                     UI_top_bar()
                     submenu_info("Blackjack")
-                    print("\nInvalid input.")
-                    enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = Try again")
+                    print(f"\n  {Fore.YELLOW}!{Style.RESET_ALL}  Invalid bet. Must be a number within your balance.")
+                    enter = input(f"\n  {Fore.YELLOW}ENTER{Style.RESET_ALL} = try again")
                     continue
 
                 # round start
@@ -497,8 +497,8 @@ while True:
                     clear()
                     UI_top_bar()
                     submenu_info("Blackjack")
-                    print(f"\n-> {Fore.GREEN}Dealer BUSTED, Round won!")
-                    enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = OK")
+                    print(f"\n  {Back.GREEN}{Fore.BLACK}{Style.BRIGHT}  WIN  {Style.RESET_ALL}  Dealer busted with {d_hand_total}.")
+                    enter = input(f"\n  {Fore.GREEN}ENTER{Style.RESET_ALL} = continue")
                     continue
                 elif did_stand == True and d_hand_total >= 17: # dealer stopped drawing
                     did_stand = False
@@ -509,8 +509,8 @@ while True:
                         clear()
                         UI_top_bar()
                         submenu_info("Blackjack")
-                        print(f"\n-> {Fore.GREEN}You WIN! Your {p_hand_total} beats dealer's {d_hand_total}.")
-                        enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = OK")
+                        print(f"\n  {Back.GREEN}{Fore.BLACK}{Style.BRIGHT}  WIN  {Style.RESET_ALL}  Your {p_hand_total} beats dealer's {d_hand_total}.")
+                        enter = input(f"\n  {Fore.GREEN}ENTER{Style.RESET_ALL} = continue")
                         continue
                     elif p_hand_total == d_hand_total: # push/tie
                         balance += bet
@@ -519,8 +519,8 @@ while True:
                         clear()
                         UI_top_bar()
                         submenu_info("Blackjack")
-                        print(f"\n-> {Fore.YELLOW}PUSH! Tie at {p_hand_total}. Bet returned.")
-                        enter = input(f"\n\n{Fore.YELLOW}ENTER{Style.RESET_ALL} = OK")
+                        print(f"\n  {Back.YELLOW}{Fore.BLACK}{Style.BRIGHT}  PUSH  {Style.RESET_ALL}  Tie at {p_hand_total}. Bet returned.")
+                        enter = input(f"\n  {Fore.YELLOW}ENTER{Style.RESET_ALL} = continue")
                         continue
                     else: # dealer closer to 21 = dealer wins
                         gamestate = "busted"
@@ -532,8 +532,8 @@ while True:
                         print(f"Hand value: {Style.RESET_ALL}{d_hand_total}")
                         mult_cards_display(dealer_hand)
 
-                        print(f"\n-> {Fore.RED}Dealer wins. Their {d_hand_total} beats your {p_hand_total}.")
-                        enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = OK")
+                        print(f"\n  {Back.RED}{Fore.WHITE}{Style.BRIGHT}  LOSS  {Style.RESET_ALL}  Dealer's {d_hand_total} beats your {p_hand_total}.")
+                        enter = input(f"\n  {Fore.RED}ENTER{Style.RESET_ALL} = continue")
                         continue
 
                 clear() # main UI loop --------
@@ -584,8 +584,8 @@ while True:
                             print(f"Hand value: {Style.RESET_ALL}{p_hand_total}")
                             mult_cards_display(player_hand)
 
-                            print(f"\n-> {Fore.RED}You BUSTED with {p_hand_total}!")
-                            enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = OK")
+                            print(f"\n  {Back.RED}{Fore.WHITE}{Style.BRIGHT}  BUST  {Style.RESET_ALL}  You drew {p_hand_total}. Over 21.")
+                            enter = input(f"\n  {Fore.RED}ENTER{Style.RESET_ALL} = continue")
                             break
                         continue
                     elif burnervar == "D" and bet <= balance: # DOUBLE
@@ -606,8 +606,8 @@ while True:
                             print(f"Hand value: {Style.RESET_ALL}{p_hand_total}")
                             mult_cards_display(player_hand)
 
-                            print(f"\n-> {Fore.RED}You BUSTED with {p_hand_total}!")
-                            enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = OK")
+                            print(f"\n  {Back.RED}{Fore.WHITE}{Style.BRIGHT}  BUST  {Style.RESET_ALL}  You drew {p_hand_total}. Over 21.")
+                            enter = input(f"\n  {Fore.RED}ENTER{Style.RESET_ALL} = continue")
                             break
                         continue
                     elif burnervar == "S": # STAND
@@ -620,14 +620,14 @@ while True:
                         clear()
                         UI_top_bar()
                         submenu_info("Blackjack")
-                        print("\nInvalid input.")
-                        enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
+                        print(f"\n  {Fore.YELLOW}!{Style.RESET_ALL}  Invalid option. Use H, D, S, or Q.")
+                        enter = input(f"\n  {Fore.YELLOW}ENTER{Style.RESET_ALL} = try again")
                 else:
                     clear()
                     UI_top_bar()
                     submenu_info("Blackjack")
-                    print("\nInvalid input.")
-                    enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
+                    print(f"\n  {Fore.YELLOW}!{Style.RESET_ALL}  Invalid option. Use H, D, S, or Q.")
+                    enter = input(f"\n  {Fore.YELLOW}ENTER{Style.RESET_ALL} = try again")
                     continue
             
             while gamestate == "busted":
@@ -638,8 +638,9 @@ while True:
                     clear()
                     UI_top_bar()
                     submenu_info("Blackjack")
-                    print(f"\n-> {Fore.RED}Balance is $0. GAME OVER.")
-                    enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Reset game")
+                    print(f"\n  {Back.RED}{Fore.WHITE}{Style.BRIGHT}  GAME OVER  {Style.RESET_ALL}  Balance is $0. The house wins.")
+                    print(f"  {Fore.RED}All bets lost.{Style.RESET_ALL}")
+                    enter = input(f"\n  {Fore.RED}ENTER{Style.RESET_ALL} = reset game")
 
         elif blkjk_menu_state == 2: # exit
             clear()
@@ -650,19 +651,19 @@ while True:
             clear()
             UI_top_bar()
             submenu_info("Blackjack")
-            print("\nInvalid input.")
+            print(f"\n  {Fore.YELLOW}!{Style.RESET_ALL}  Invalid option.")
 
             blkjk_menu_state = 0
-            enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = Try again")
+            enter = input(f"\n  {Fore.YELLOW}ENTER{Style.RESET_ALL} = try again")
             continue
         else:   # ERROR handler for any other numeric input
             clear()
             UI_top_bar()
             submenu_info("Blackjack")
-            print("\nInvalid input.")
+            print(f"\n  {Fore.YELLOW}!{Style.RESET_ALL}  Invalid option.")
 
             blkjk_menu_state = 0
-            enter = input(f"\n\n{Fore.GREEN}ENTER{Style.RESET_ALL} = Try again")
+            enter = input(f"\n  {Fore.YELLOW}ENTER{Style.RESET_ALL} = try again")
             continue
 
     elif menu_state == 3: # end session
@@ -675,7 +676,7 @@ while True:
     elif menu_state == 10: # invalid input state
         clear()
         UI_top_bar()
-        print("\nInvalid input.")
+        print(f"\n  {Fore.YELLOW}!{Style.RESET_ALL}  Invalid option.")
         menu_state = 0
-        enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = Try again")
+        enter = input(f"\n  {Fore.YELLOW}ENTER{Style.RESET_ALL} = try again")
         continue
