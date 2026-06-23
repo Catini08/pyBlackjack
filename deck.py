@@ -17,10 +17,11 @@ def clear():
     )
 
 def UI_top_bar():
-    print(f"{Back.WHITE}{Style.BRIGHT}{Fore.BLACK} Interactive Deck of Cards                     {Back.RED}{Fore.WHITE} X {Style.RESET_ALL}")
+    print(f"{Back.WHITE}{Style.BRIGHT}{Fore.BLACK} ⚜ Interactive Deck of Cards                ─  □ {Back.RED}{Fore.WHITE} ✕ {Style.RESET_ALL}")
 
 def submenu_info(menuname):
-    print(f"\n{Back.BLUE} • {Back.WHITE}{Fore.BLACK} {menuname} {Style.RESET_ALL}\n")
+    print(f"\n {Style.BRIGHT}{menuname}{Style.RESET_ALL}")
+    print(f"{Style.DIM}{'─' * 40}{Style.RESET_ALL}\n")
 
 
 suits = ["♠", "♡", "♦", "♣"]
