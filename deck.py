@@ -17,7 +17,7 @@ def clear():
     )
 
 def UI_top_bar():
-    print(f"{Back.WHITE}{Fore.RED} ● {Fore.YELLOW}● {Fore.GREEN}●  {Style.BRIGHT}{Fore.BLACK}Interactive Deck of Cards                  {Style.NORMAL}{Fore.BLACK}{Style.RESET_ALL}")
+    print(f"{Back.WHITE}{Style.BRIGHT}{Fore.BLACK} Interactive Deck of Cards                     {Back.RED}{Fore.WHITE} X {Style.RESET_ALL}")
 
 def submenu_info(menuname):
     print(f"\n{Back.BLUE} • {Back.WHITE}{Fore.BLACK} {menuname} {Style.RESET_ALL}\n")
@@ -580,6 +580,10 @@ while True:
                             clear()
                             UI_top_bar()
                             submenu_info("Blackjack")
+                            print(f"\n{Style.BRIGHT}-> {Fore.BLUE}Your hand{Style.RESET_ALL}")
+                            print(f"Hand value: {Style.RESET_ALL}{p_hand_total}")
+                            mult_cards_display(player_hand)
+
                             print(f"\n-> {Fore.RED}You BUSTED with {p_hand_total}!")
                             enter = input(f"\n\n{Fore.RED}ENTER{Style.RESET_ALL} = OK")
                             break
@@ -608,6 +612,10 @@ while True:
                         continue
                     elif burnervar == "S": # STAND
                         did_stand = True
+                    elif burnervar == "Q":
+                        menu_state = 0
+                        blkjk_menu_state = 0
+                        break
                     else:
                         clear()
                         UI_top_bar()
