@@ -589,7 +589,15 @@ while True:
                             enter = input(f"\n  {Fore.RED}ENTER{Style.RESET_ALL} = continue")
                             break
                         continue
-                    elif burnervar == "D" and bet <= balance: # DOUBLE
+                    elif burnervar == "D": # DOUBLE
+                        if (bet * 2) > balance:
+                            clear()
+                            UI_top_bar()
+                            submenu_info("Blackjack")
+                            print(f"\n  {Fore.YELLOW}!{Style.RESET_ALL}  Not enough balance to double.")
+                            enter = input(f"\n  {Fore.YELLOW}ENTER{Style.RESET_ALL} = try again")
+                            continue
+
                         balance -= bet
                         bet += bet
                         player_hand.append(deck1.order.pop(0))
